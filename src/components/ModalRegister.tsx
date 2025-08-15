@@ -63,6 +63,8 @@ export default function ModalRegister() {
     if (buyShoes) total += 600;
     if (buyCap) total += 400;
 
+    if (buyBottle && buyShoes && buyCap) total -= 1200 * 0.2;
+
     return total;
   };
 
@@ -215,7 +217,7 @@ export default function ModalRegister() {
                 <label className="form-check-label">Cap 🧢 (400 THB)</label>
               </div>
             </div>
-
+            <span className={((buyBottle && buyShoes && buyCap )? "text-success d-block" : "d-none")}>(20% Discounted)</span>
             <div className="alert alert-primary mt-3" role="alert">
               Promotion📢 Buy all items to get 20% Discount
             </div>
@@ -224,13 +226,13 @@ export default function ModalRegister() {
             <div>
               Total Payment : {computeTotalPayment().toLocaleString()} THB
               {/* Render below element conditionally when user get 20% discount */}
-              {/* <span className="text-success d-block">(20% Discounted)</span> */}
+              
             </div>
           </div>
           <div className="modal-footer">
             {/* Terms and conditions */}
             <div>
-              <input className="me-2 form-check-input" type="checkbox" />I agree
+              <input className="me-2 form-check-input" type="checkbox" onChange={event => setIsUserAgreed(event.target.checked)} checked={isUserAgreed}/>I agree
               to the terms and conditions
             </div>
             {/* Register Button */}
